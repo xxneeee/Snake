@@ -13,7 +13,7 @@ def set_start():
     direction_head = (1,0)
 
 
-def move_head():
+def move_head(snake):
     print('move head')
     global position_head, running, direction_head, keys_blocked
     position_head = (position_head[0] + direction_head[0], position_head[1] + direction_head[1])
@@ -22,6 +22,8 @@ def move_head():
     if position_head[0] <= 1 or position_head[0] >= 44 or position_head[1] <= 1 or position_head[1] >= 44:
         running = False
         print("STOP")
+
+    print(snake)
 
     return position_head
 

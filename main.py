@@ -28,7 +28,7 @@ def draw():
     if frame_number < frame_max:
         return
     frame_number = 0
-    new_position = move_head()
+    new_position = move_head(snake)
     snake = move_body(snake, new_position, False)
 
 def draw_snake():
