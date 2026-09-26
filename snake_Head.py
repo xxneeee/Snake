@@ -23,7 +23,9 @@ def move_head(snake):
         running = False
         print("STOP")
 
-    print(snake)
+    if position_head in snake:
+        running = False
+        print('AAAAAAA')
 
     return position_head
 

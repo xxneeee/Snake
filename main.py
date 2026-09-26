@@ -29,11 +29,15 @@ def draw():
         return
     frame_number = 0
     new_position = move_head(snake)
+    if not snake_Head.running:
+        return
     snake = move_body(snake, new_position, False)
 
 def draw_snake():
     segment_size = 20
-    for segment in snake:
+    fill(100, 150, 60)
+    rect(snake[0][0] * segment_size, snake[0][1] * segment_size, segment_size, segment_size)
+    for segment in snake[1:]:
         fill(200, 250, 120)
         rect(segment[0] * segment_size, segment[1] * segment_size, segment_size, segment_size)
 
