@@ -1,22 +1,41 @@
 from p5 import *
+from p5 import rect_mode
 
-snake = [(1, 2), (1, 3), (1, 4), (1, 5), (1, 6)]
+import snake_Head
+from snake_Head import *
+from snake_Head import running
+
+snake = []
+frame_max = 30
+frame_number = 0
 
 def setup():
-    size(200, 200)
+    size(900, 900)
+    set_start()
     print_snake()
 
 def draw():
+    global frame_number, snake
     rect_mode(CENTER)
+    background(50)
     draw_snake()
+    if not snake_Head.running:
+        return
+    frame_number += 1
+    if frame_number < frame_max:
+        return
+    frame_number = 0
+    new_position = move_head()
+    snake = [new_position]
+    print_snake()
 
 def draw_snake():
-    secment_size = 20
-    for secment in snake:
-        rect(secment[0] * secment_size, secment[1] * secment_size, secment_size, secment_size)
+    segment_size = 20
+    for segment in snake:
+        fill(200, 250, 120)
+        rect(segment[0] * segment_size, segment[1] * segment_size, segment_size, segment_size)
 
 def print_snake():
-    for secment in snake:
-        print(secment)
+    for segment in snake:
+        print(segment)
 run()
-
