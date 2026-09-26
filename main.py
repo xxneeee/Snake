@@ -7,7 +7,7 @@ import snake_Head
 from snake_Head import *
 from snake_Head import running
 
-frame_max = 30
+frame_max = 2
 frame_number = 0
 from snake_body import *
 
@@ -53,7 +53,7 @@ def draw():
     draw_snake()
     if not snake_Head.running:
         return
-    frame_number += 5
+    frame_number += 1
     if frame_number < frame_max:
         return
     frame_number = 0
