@@ -18,6 +18,8 @@ snake = []
 
 food = []
 
+f = None
+
 grid_size = 45
 segment_size = 20
 grid_in_pixel=grid_size*segment_size
@@ -28,12 +30,13 @@ def setup():
     print_snake()
 
 def reset_game():
-    global snake
+    global snake, f
     size(grid_in_pixel, grid_in_pixel)
     set_start()
     snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
     snake_Head.running = True
     print ('Reset game')
+    f = create_font("Arial.ttf", 144)  # STEP 2 Create Font
 
     #food anfangswert zuweisen
     for e in range(5):
@@ -58,13 +61,14 @@ def random_food_position():
     food.append((x, y))
 
 def draw():
+    rect_mode(CENTER)
     background(100)
     draw_grid()
-    global frame_number, snake
-    rect_mode(CENTER)
+    global frame_number, snake, f
     draw_food()
     draw_snake()
     if not snake_Head.running:
+        end_screen()
         return
     frame_number += 5
     if frame_number < frame_max:
@@ -72,9 +76,18 @@ def draw():
     frame_number = 0
     new_position = move_head(snake)
     if not snake_Head.running:
+
         return
     wachsen = has_eaten(new_position)
     snake = move_body(snake, new_position, wachsen)
+
+def end_screen():
+    text_font(f)
+    text_align(CENTER, CENTER)
+    fill(255)
+    no_stroke()
+    text("The End!", int(grid_in_pixel / 2), 100)
+
 
 def draw_food():
     no_stroke()
