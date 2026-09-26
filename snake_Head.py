@@ -52,10 +52,6 @@ def turn_head(key):
 
 
 
-def key_pressed():
-    global key, keys_pressed
-    if key in ['w','d','s','a'] and len(keys_pressed) < 3:
-        keys_pressed.append(key)
 
 
 

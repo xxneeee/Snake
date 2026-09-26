@@ -1,3 +1,4 @@
+from numpy.ma.core import true_divide
 from p5 import *
 from p5 import rect_mode
 
@@ -10,12 +11,19 @@ frame_number = 0
 from snake_body import *
 
 
-snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
+snake = []
 
 def setup():
     size(900, 900)
-    set_start()
+    reset_game()
     print_snake()
+
+def reset_game():
+    global snake
+    set_start()
+    snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
+    snake_Head.running = True
+    print ('Reset game')
 
 def draw():
     rect_mode(CENTER)
@@ -26,7 +34,7 @@ def draw():
     draw_snake()
     if not snake_Head.running:
         return
-    frame_number += 2
+    frame_number += 5
     if frame_number < frame_max:
         return
     frame_number = 0
@@ -53,5 +61,15 @@ def draw_snake():
 def print_snake():
     for segment in snake:
         print(segment)
+
+
+def key_pressed():
+    global key, keys_pressed
+    if key in ['w', 'd', 's', 'a'] and len(keys_pressed) < 3:
+        keys_pressed.append(key)
+    if not snake_Head.running and key == 'ENTER':
+       reset_game()
+
+
 run()
 
