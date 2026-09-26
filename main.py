@@ -1,6 +1,8 @@
 from p5 import *
 from p5 import rect_mode
 
+from random import randint
+
 import snake_Head
 from snake_Head import *
 from snake_Head import running
@@ -14,7 +16,7 @@ snake = []
 
 food = []
 
-grid_size = 90
+grid_size = 45
 segment_size = 20
 grid_in_pixel=grid_size*segment_size
 
@@ -43,17 +45,15 @@ def has_eaten():
 
 
 def draw():
-    background(50)
-    draw_grid()
-    rect_mode(CENTER)
     background(100)
-    draw_border()
+    draw_grid()
     global frame_number, snake
     rect_mode(CENTER)
+    draw_food()
     draw_snake()
     if not snake_Head.running:
         return
-    frame_number += 1
+    frame_number += 5
     if frame_number < frame_max:
         return
     frame_number = 0
@@ -64,8 +64,9 @@ def draw():
     snake = move_body(snake, new_position, False)
 
 def draw_food():
+    no_stroke()
+    fill('red')
     for apple in food:
-        fill('red')
         circle(apple[0] * segment_size, apple[1] * segment_size, segment_size / 2)
 
 def draw_border():
@@ -85,13 +86,21 @@ def draw_snake():
 
 def draw_grid():
     stroke(30)
+    stroke_weight(1)
     begin_shape()
+    offset = int(segment_size / 2)
     for row in range(grid_size):
-        line(0, row * segment_size, grid_in_pixel, row * segment_size)
+        line(0, offset + row * segment_size, grid_in_pixel, offset + row * segment_size)
     for col in range(grid_size):
-        line(col * segment_size, 0, col * segment_size, grid_in_pixel)
+        line(col * segment_size + offset, 0, col * segment_size + offset, grid_in_pixel)
 
     end_shape()
+
+    no_fill()
+    stroke(30)
+    stroke_weight(60)
+    rect(450, 450, 900, 900)
+
 
 def print_snake():
     for segment in snake:
