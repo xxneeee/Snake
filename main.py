@@ -1,3 +1,5 @@
+from operator import truediv
+
 from p5 import *
 from p5 import rect_mode
 
@@ -7,7 +9,7 @@ import snake_Head
 from snake_Head import *
 from snake_Head import running
 
-frame_max = 2
+frame_max = 10
 frame_number = 0
 from snake_body import *
 
@@ -35,14 +37,25 @@ def reset_game():
 
     #food anfangswert zuweisen
     for e in range(5):
-        x = randint(0, grid_size)
-        y = randint(0, grid_size)
+        random_food_position()
 
-        food.append( [x, y] )
-    print(f'food{food}')
-def has_eaten():
-    pass
+def has_eaten(position):
+   #food gefunden
+    global food
+    print(f'{position} {food}')
+    if position in food:
+        food.remove(position)
+        random_food_position()
+        print(f'eaten')
+        return True
+    #food nicht gefunden
+    return False
 
+def random_food_position():
+    x = randint(2, grid_size -2)
+    y = randint(2, grid_size -2)
+
+    food.append((x, y))
 
 def draw():
     background(100)
@@ -53,15 +66,15 @@ def draw():
     draw_snake()
     if not snake_Head.running:
         return
-    frame_number += 1
+    frame_number += 5
     if frame_number < frame_max:
         return
     frame_number = 0
     new_position = move_head(snake)
     if not snake_Head.running:
         return
-    wachsen = has_eaten()
-    snake = move_body(snake, new_position, False)
+    wachsen = has_eaten(new_position)
+    snake = move_body(snake, new_position, wachsen)
 
 def draw_food():
     no_stroke()
