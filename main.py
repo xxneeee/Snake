@@ -24,7 +24,7 @@ def draw():
     draw_snake()
     if not snake_Head.running:
         return
-    frame_number += 1
+    frame_number += 2
     if frame_number < frame_max:
         return
     frame_number = 0
