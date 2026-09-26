@@ -18,9 +18,11 @@ def setup():
     print_snake()
 
 def draw():
-    background(50)
-    global frame_number, snake
     rect_mode(CENTER)
+    background(100)
+    draw_border()
+    global frame_number, snake
+
     draw_snake()
     if not snake_Head.running:
         return
@@ -33,7 +35,14 @@ def draw():
         return
     snake = move_body(snake, new_position, False)
 
+def draw_border():
+    no_fill()
+    stroke(30)
+    stroke_weight(60)
+    rect(450,450,900,900)
+
 def draw_snake():
+    no_stroke()
     segment_size = 20
     fill(100, 150, 60)
     rect(snake[0][0] * segment_size, snake[0][1] * segment_size, segment_size, segment_size)
