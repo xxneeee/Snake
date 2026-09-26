@@ -1,5 +1,3 @@
-from random import randint
-
 from p5 import *
 from p5 import rect_mode
 
@@ -11,7 +9,8 @@ frame_max = 30
 frame_number = 0
 from snake_body import *
 
-snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
+
+snake = []
 
 food = []
 
@@ -20,9 +19,17 @@ segment_size = 20
 grid_in_pixel=grid_size*segment_size
 
 def setup():
+    size(900, 900)
+    reset_game()
+    print_snake()
+
+def reset_game():
+    global snake
     size(grid_in_pixel, grid_in_pixel)
     set_start()
-    print_snake()
+    snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
+    snake_Head.running = True
+    print ('Reset game')
 
     #food anfangswert zuweisen
     for e in range(5):
@@ -38,9 +45,11 @@ def has_eaten():
 def draw():
     background(50)
     draw_grid()
+    rect_mode(CENTER)
+    background(100)
+    draw_border()
     global frame_number, snake
     rect_mode(CENTER)
-    draw_food()
     draw_snake()
     if not snake_Head.running:
         return
@@ -49,6 +58,8 @@ def draw():
         return
     frame_number = 0
     new_position = move_head(snake)
+    if not snake_Head.running:
+        return
     wachsen = has_eaten()
     snake = move_body(snake, new_position, False)
 
@@ -57,8 +68,18 @@ def draw_food():
         fill('red')
         circle(apple[0] * segment_size, apple[1] * segment_size, segment_size / 2)
 
+def draw_border():
+    no_fill()
+    stroke(30)
+    stroke_weight(60)
+    rect(450,450,900,900)
+
 def draw_snake():
-    for segment in snake:
+    no_stroke()
+    segment_size = 20
+    fill(100, 150, 60)
+    rect(snake[0][0] * segment_size, snake[0][1] * segment_size, segment_size, segment_size)
+    for segment in snake[1:]:
         fill(200, 250, 120)
         rect(segment[0] * segment_size, segment[1] * segment_size, segment_size, segment_size)
 
@@ -77,4 +98,13 @@ def print_snake():
         print(segment)
 
 
+def key_pressed():
+    global key, keys_pressed
+    if key in ['w', 'd', 's', 'a'] and len(keys_pressed) < 3:
+        keys_pressed.append(key)
+    if not snake_Head.running and key == 'ENTER':
+       reset_game()
+
+
 run()
+
