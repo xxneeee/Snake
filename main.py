@@ -1,6 +1,7 @@
-from numpy.ma.core import true_divide
 from p5 import *
 from p5 import rect_mode
+
+from random import randint
 
 import snake_Head
 from snake_Head import *
@@ -13,6 +14,12 @@ from snake_body import *
 
 snake = []
 
+food = []
+
+grid_size = 45
+segment_size = 20
+grid_in_pixel=grid_size*segment_size
+
 def setup():
     size(900, 900)
     reset_game()
@@ -20,17 +27,29 @@ def setup():
 
 def reset_game():
     global snake
+    size(grid_in_pixel, grid_in_pixel)
     set_start()
     snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
     snake_Head.running = True
     print ('Reset game')
 
-def draw():
-    rect_mode(CENTER)
-    background(100)
-    draw_border()
-    global frame_number, snake
+    #food anfangswert zuweisen
+    for e in range(5):
+        x = randint(0, grid_size)
+        y = randint(0, grid_size)
 
+        food.append( [x, y] )
+    print(f'food{food}')
+def has_eaten():
+    pass
+
+
+def draw():
+    background(100)
+    draw_grid()
+    global frame_number, snake
+    rect_mode(CENTER)
+    draw_food()
     draw_snake()
     if not snake_Head.running:
         return
@@ -41,7 +60,14 @@ def draw():
     new_position = move_head(snake)
     if not snake_Head.running:
         return
+    wachsen = has_eaten()
     snake = move_body(snake, new_position, False)
+
+def draw_food():
+    no_stroke()
+    fill('red')
+    for apple in food:
+        circle(apple[0] * segment_size, apple[1] * segment_size, segment_size / 2)
 
 def draw_border():
     no_fill()
@@ -58,6 +84,24 @@ def draw_snake():
     for segment in snake[1:]:
         fill(200, 250, 120)
         rect(segment[0] * segment_size, segment[1] * segment_size, segment_size, segment_size)
+
+def draw_grid():
+    stroke(30)
+    stroke_weight(1)
+    begin_shape()
+    offset = int(segment_size / 2)
+    for row in range(grid_size):
+        line(0, offset + row * segment_size, grid_in_pixel, offset + row * segment_size)
+    for col in range(grid_size):
+        line(col * segment_size + offset, 0, col * segment_size + offset, grid_in_pixel)
+
+    end_shape()
+
+    no_fill()
+    stroke(30)
+    stroke_weight(60)
+    rect(450, 450, 900, 900)
+
 
 def print_snake():
     for segment in snake:
