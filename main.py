@@ -10,7 +10,7 @@ frame_number = 0
 from snake_body import *
 
 
-snake = [(1, 2), (1, 3), (1, 4), (1, 5), (1, 6)]
+snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
 
 def setup():
     size(900, 900)
@@ -18,11 +18,9 @@ def setup():
     print_snake()
 
 def draw():
-    background(0)
+    background(50)
     global frame_number, snake
     rect_mode(CENTER)
-    global snake
-    snake = move_body(snake, "Ost", False)
     draw_snake()
     if not snake_Head.running:
         return
@@ -31,8 +29,7 @@ def draw():
         return
     frame_number = 0
     new_position = move_head()
-    snake = [new_position]
-    print_snake()
+    snake = move_body(snake, new_position, False)
 
 def draw_snake():
     segment_size = 20
