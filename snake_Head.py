@@ -8,9 +8,10 @@ position_head = (0,0)
 direction_head = (1,0)
 
 def set_start():
-    global position_head, direction_head
+    global position_head, direction_head, keys_pressed
     position_head = (22,22)
     direction_head = (1,0)
+    keys_pressed = []
 
 
 def move_head(snake):

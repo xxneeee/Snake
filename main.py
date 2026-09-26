@@ -86,6 +86,7 @@ def draw_border():
     no_fill()
     stroke(30)
     stroke_weight(60)
+    rect_mode(CENTER)
     rect(450,450,900,900)
 
 def draw_snake():
@@ -121,9 +122,9 @@ def print_snake():
 
 
 def key_pressed():
-    global key, keys_pressed
-    if key in ['w', 'd', 's', 'a'] and len(keys_pressed) < 3:
-        keys_pressed.append(key)
+    global key
+    if key in ['w', 'd', 's', 'a'] and len(snake_Head.keys_pressed) < 3:
+        snake_Head.keys_pressed.append(key)
     if not snake_Head.running and key == 'ENTER':
        reset_game()
 
