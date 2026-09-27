@@ -20,6 +20,8 @@ food = []
 
 f = None
 
+score = 0
+
 grid_size = 45
 segment_size = 20
 grid_in_pixel=grid_size*segment_size
@@ -30,13 +32,14 @@ def setup():
     print_snake()
 
 def reset_game():
-    global snake, f, food
+    global snake, f, food, score
     size(grid_in_pixel, grid_in_pixel)
     set_start()
     snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
     snake_Head.running = True
     print ('Reset game')
     f = create_font("Arial.ttf", 144)  # STEP 2 Create Font
+    score = 0
 
     #food anfangswert zuweisen
     food = []
@@ -45,12 +48,13 @@ def reset_game():
 
 def has_eaten(position):
    #food gefunden
-    global food
+    global food, score
     print(f'{position} {food}')
     if position in food:
         food.remove(position)
         random_food_position()
         print(f'eaten')
+        score += 1
         return True
     #food nicht gefunden
     return False
@@ -61,10 +65,20 @@ def random_food_position():
 
     food.append((x, y))
 
+
+def draw_score():
+    text_font(f)
+    text_align(LEFT, CENTER)
+    text_size(24)
+    stroke(255)
+    text(f'Score: {score}', int(grid_in_pixel / 10), 100)
+
+
 def draw():
     rect_mode(CENTER)
     background(100)
     draw_grid()
+    draw_score()
     global frame_number, snake, f
     draw_food()
     draw_snake()
@@ -82,12 +96,15 @@ def draw():
     wachsen = has_eaten(new_position)
     snake = move_body(snake, new_position, wachsen)
 
+
 def end_screen():
     text_font(f)
     text_align(CENTER, CENTER)
-    fill(255)
+    fill(200,0,0)
+    stroke(50)
+    stroke_weight(5)
     no_stroke()
-    text("The End!", int(grid_in_pixel / 2), 100)
+    text(f"Game Over!\n Score: {score}\n ", int(grid_in_pixel / 2), 250)
 
 
 def draw_food():
