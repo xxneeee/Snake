@@ -115,9 +115,9 @@ def end_screen():
 
 def draw_food():
     no_stroke()
-    fill('red')
+    fill(255,0,0)
     for apple in food:
-        circle(apple[0] * segment_size, apple[1] * segment_size, segment_size / 2)
+        circle(apple[0] * segment_size, apple[1] * segment_size, segment_size )
 
 def draw_border():
     no_fill()
@@ -167,4 +167,3 @@ def key_pressed():
 
 
 run()
-
