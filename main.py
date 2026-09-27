@@ -9,7 +9,7 @@ import snake_Head
 from snake_Head import *
 from snake_Head import running
 
-frame_max = 10
+frame_max = 30
 frame_number = 0
 from snake_body import *
 
@@ -19,6 +19,7 @@ snake = []
 food = []
 
 f = None
+f2 = None
 
 score = 0
 
@@ -32,13 +33,15 @@ def setup():
     print_snake()
 
 def reset_game():
-    global snake, f, food, score
+    global snake, f, f2, food, score
     size(grid_in_pixel, grid_in_pixel)
     set_start()
     snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
     snake_Head.running = True
     print ('Reset game')
     f = create_font("Arial.ttf", 144)  # STEP 2 Create Font
+    f2 = create_font("Arial.ttf", 24)  # STEP 2 Create Font
+
     score = 0
 
     #food anfangswert zuweisen
@@ -67,11 +70,14 @@ def random_food_position():
 
 
 def draw_score():
-    text_font(f)
+    text_font(f2)
     text_align(LEFT, CENTER)
-    text_size(24)
-    stroke(255)
-    text(f'Score: {score}', int(grid_in_pixel / 10), 100)
+    #text_size(24)
+    #stroke(255)
+    #stroke_weight(2)
+    no_stroke()
+    fill(255)
+    text(f'Score: {score}\n ', int(grid_in_pixel / 10), 100)
 
 
 def draw():
@@ -130,16 +136,16 @@ def draw_snake():
         rect(segment[0] * segment_size, segment[1] * segment_size, segment_size, segment_size)
 
 def draw_grid():
-    stroke(30)
-    stroke_weight(1)
-    begin_shape()
-    offset = int(segment_size / 2)
-    for row in range(grid_size):
-        line(0, offset + row * segment_size, grid_in_pixel, offset + row * segment_size)
-    for col in range(grid_size):
-        line(col * segment_size + offset, 0, col * segment_size + offset, grid_in_pixel)
+    #stroke(30)
+    #stroke_weight(1)
+    #begin_shape()
+    #offset = int(segment_size / 2)
+    #for row in range(grid_size):
+    #    line(0, offset + row * segment_size, grid_in_pixel, offset + row * segment_size)
+    #for col in range(grid_size):
+    #    line(col * segment_size + offset, 0, col * segment_size + offset, grid_in_pixel)
 
-    end_shape()
+    #end_shape()
 
     no_fill()
     stroke(30)
