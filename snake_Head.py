@@ -36,18 +36,18 @@ def move_head(snake):
 def turn_head(key):
     global direction_head
     #Nord
-    if (key == 'w' and direction_head != (0,1)):
+    if (key == 'w' or key == 'W') and direction_head != (0,1):
         direction_head = (0,-1)
 
     #Ost
-    elif key == 'd' and direction_head != (-1,0):
+    elif (key == 'd' or key == 'D') and direction_head != (-1,0):
         direction_head = (1,0)
 
     #süd
-    elif key == 's' and direction_head != (0,-1):
+    elif (key == 's' or key == 'S') and direction_head != (0,-1):
         direction_head = (0,1)
 
-    elif key == 'a' and direction_head != (1,0):
+    elif (key == 'a' or key == 'A') and direction_head != (1,0):
         direction_head = (-1,0)
 
 
