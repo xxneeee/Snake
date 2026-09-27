@@ -30,7 +30,7 @@ def setup():
     print_snake()
 
 def reset_game():
-    global snake, f
+    global snake, f, food
     size(grid_in_pixel, grid_in_pixel)
     set_start()
     snake = [(22, 22), (21, 22), (20, 22), (19, 22), (18, 22)]
@@ -39,6 +39,7 @@ def reset_game():
     f = create_font("Arial.ttf", 144)  # STEP 2 Create Font
 
     #food anfangswert zuweisen
+    food = []
     for e in range(5):
         random_food_position()
 
